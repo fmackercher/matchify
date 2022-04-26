@@ -94,12 +94,20 @@ def callback():
 # Spotify returns requested data
 
 
+def getUserInfo():
+    data = request.form
+    sp = spotipy.Spotify(auth=session['toke'])
+    response = sp.current_user()
+    print(response)
+    return response
+
+
 def getTopArtistsShort():
     data = request.form
     sp = spotipy.Spotify(auth=session['toke'])
     response = sp.current_user_top_artists(
         limit=10, offset=0, time_range='short_term')['items']
-    print(response)
+    # print(response)
     return response
 
 
@@ -108,7 +116,7 @@ def getTopArtistsMedium():
     sp = spotipy.Spotify(auth=session['toke'])
     response = sp.current_user_top_artists(
         limit=10, offset=0, time_range='medium_term')['items']
-    print(response)
+    # print(response)
     return response
 
 
@@ -117,7 +125,7 @@ def getTopArtistsLong():
     sp = spotipy.Spotify(auth=session['toke'])
     response = sp.current_user_top_artists(
         limit=10, offset=0, time_range='long_term')['items']
-    print(response)
+    # print(response)
     return response
 
 
@@ -127,6 +135,8 @@ def artists():
     # response = (sp.current_user_top_artists(
     #     limit=20, offset=0, time_range='medium_term'))['items']
     # app.logger.info(response)
+    user_info = getUserInfo()
+    name = user_info['display_name']
     data1 = getTopArtistsShort()
     top_artists_short = []
     for artist in data1:
@@ -142,7 +152,13 @@ def artists():
     for artist in data3:
         top_artists_long.append(artist['name'])
     print(top_artists_long)
-    return render_template('artists.html', data1=top_artists_short, data2=top_artists_medium, data3=top_artists_long)
+    return render_template('artists.html', name=name, data1=top_artists_short, data2=top_artists_medium, data3=top_artists_long)
+
+
+@app.route('/blender/form', methods=['POST'])
+def form_post():
+    text = request.form['text']
+    return text
 
 
 @app.route('/blender')

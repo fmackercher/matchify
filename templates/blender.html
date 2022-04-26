@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Create{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+</link>
+
+<script src="{{ url_for('static', filename='js/blender.js') }}"></script>
+<script>var bootstrapTooltip = jQuery.fn.tooltip;</script>
+<!-- Naming conflict for tooltip with Bootstrap and JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>jQuery.fn.tooltip = bootstrapTooltip;</script> <!-- Naming conflict for tooltip with Bootstrap and JQuery -->
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="py-5">
+    <div class="container">
+        <div class="row page-info">
+            <div class="col-12 col-lg-4">
+                <h1>Blender</h1>
+            </div>
+            <div class="col-12 col-lg-8">
+                <p>Enter a username and we will find your top artists in common!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input name="autocomplete" type="text" id="autocomplete" class="form-control input-lg" />
+            </div>
+        </div>
+        <div class="row center-parent">
+            <div class="col-sm-12 col-md-8 center-child">
+                <div class="list-group py-4" id="selectedItems">
+                </div>
+            </div>
+        </div>
+        <div class="row center-parent">
+            <div class="col-sm-8 center-child">
+                <button type="button" class="btn btn-default form-button" data-toggle="modal" data-target="#saveModal">
+                    BLEND
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="save_modal"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-left m-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+                        </button>
+                        <form class="p-4" id="playlistForm">
+                            <h1 class="modal-title text-center">Blend your artists!</h1>
+                            <p class="modal-info">Matchify will blend your top Spotify artists based with your friend's.
+                            </p>
+                            <div class="form-group">
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <div class="form-text">
+                                            <label for="playlistName">Username</label>
+                                            <input type="text" class="form-control" name="playlist_name"
+                                                id="playlistName" aria-describedby="PlaylistName" value="DiscoverDaily">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-info btn-block" id="createBtn" type="button"
+                                data-dismiss="modal">BLEND</button>
+
+                        </form>
+                    </div>
+                    <div class="modal-right">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
