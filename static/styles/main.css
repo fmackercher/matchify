@@ -434,3 +434,10 @@ footer p {
 .hyperlink-black {
     color: #000;
 }
+
+/************/
+
+#common {
+    display: flex;
+    justify-content: center;
+}

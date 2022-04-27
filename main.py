@@ -1,27 +1,12 @@
-from flask import Flask, render_template, redirect, request, session, make_response, session, redirect
+from flask import Flask, render_template, redirect, request, session, make_response, session, redirect, url_for
 import requests
+import requests_cache
 import spotipy
 import spotipy.util as util
 import time
 import json
 from secrets import CLIENT_ID, CLIENT_SECRET
-from logging.config import dictConfig
 
-dictConfig({
-    'version': 1,
-    'formatters': {'default': {
-        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
-    }},
-    'handlers': {'wsgi': {
-        'class': 'logging.StreamHandler',
-        'stream': 'ext://flask.logging.wsgi_errors_stream',
-        'formatter': 'default'
-    }},
-    'root': {
-        'level': 'INFO',
-        'handlers': ['wsgi']
-    }
-})
 
 app = Flask(__name__)
 
@@ -37,9 +22,13 @@ SCOPE = 'playlist-modify-private,playlist-modify-public,user-top-read'
 # Set this to True for testing but you probaly want it set to False in production.
 SHOW_DIALOG = True
 
+requests_cache.install_cache(
+    'github_cache', backend='sqlite', expire_after=180)
 
 # authorization-code-flow Step 1. Have your application request authorization;
 # the user logs in and authorizes access
+
+
 @app.route("/")
 def verify():
     # Don't reuse a SpotifyOAuth object because they store token info and you could leak user tokens if you reuse a SpotifyOAuth object
@@ -98,7 +87,7 @@ def getUserInfo():
     data = request.form
     sp = spotipy.Spotify(auth=session['toke'])
     response = sp.current_user()
-    print(response)
+    # print(response)
     return response
 
 
@@ -141,29 +130,58 @@ def artists():
     top_artists_short = []
     for artist in data1:
         top_artists_short.append(artist['name'])
-    print(top_artists_short)
+    # print(top_artists_short)
     data2 = getTopArtistsMedium()
     top_artists_medium = []
     for artist in data2:
         top_artists_medium.append(artist['name'])
-    print(top_artists_medium)
+    # print(top_artists_medium)
     data3 = getTopArtistsLong()
     top_artists_long = []
     for artist in data3:
         top_artists_long.append(artist['name'])
-    print(top_artists_long)
+    # print(top_artists_long)
     return render_template('artists.html', name=name, data1=top_artists_short, data2=top_artists_medium, data3=top_artists_long)
 
 
-@app.route('/blender/form', methods=['POST'])
-def form_post():
-    text = request.form['text']
-    return text
+def get_playlist_tracks():
+    sp = spotipy.Spotify(auth=session['toke'])
+    results = sp.playlist_items('43Yim9aRqJJ5Rmq5ag8XRJ')
+    # print(results)
+    artists = []
+    tracks = results['items']
+    for i in tracks:
+        artists.append(i['track']['album']['artists'][0]['name'])
+        # tracks = results['items']
+        # while results['next']:
+        #     results = sp.next(results)
+        #     tracks.extend(results['items'])
+    print(artists)
+    return artists
 
 
-@app.route('/blender')
+@app.route('/blender', methods=['POST', 'GET'])
 def blender():
-    return render_template('blender.html')
+    if request.method == "GET":
+        return render_template('blender.html')
+    if request.form['submit'] == 'submit':
+        sp = spotipy.Spotify(auth=session['toke'])
+        playlist_id = request.form['playlist_name']
+        results = sp.playlist_items(playlist_id)
+        # print(results)
+        artists = []
+        tracks = results['items']
+        for i in tracks:
+            artists.append(i['track']['album']['artists'][0]['name'])
+        user_info = getUserInfo()
+        name = user_info['display_name']
+        data1 = getTopArtistsShort()
+        top_artists_short = []
+        for artist in data1:
+            top_artists_short.append(artist['name'])
+        artists_in_common = list(set(artists).intersection(top_artists_short))
+        number_in_common = len(artists_in_common)
+        return render_template('results.html', playlist_artists=artists, name=name, common=artists_in_common, number=number_in_common)
 
 
 if __name__ == "__main__":
