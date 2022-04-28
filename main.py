@@ -160,11 +160,11 @@ def get_playlist_tracks():
     return artists
 
 
-@app.route('/blender', methods=['POST', 'GET'])
+@app.route('/blendr', methods=['POST', 'GET'])
 def blender():
     if request.method == "GET":
         return render_template('blender.html')
-    if request.form['submit'] == 'submit':
+    if request.form['submit'] == 'BLEND':
         sp = spotipy.Spotify(auth=session['toke'])
         playlist_id = request.form['playlist_name']
         results = sp.playlist_items(playlist_id)

@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     display: block;
-    color: #000 !important;
+    color: #000;
     /*  background: linear-gradient(349deg, rgba(45, 45, 45, 1) 15%, rgba(119, 44, 115, 1) 55%, rgba(84, 118, 255, 1) 77%) fixed;
 */
     background: linear-gradient(349deg, rgba(45, 45, 45, 1) 15%, rgba(159, 76, 154, 1) 55%, rgba(85, 135, 240, 1) 77%);
@@ -56,9 +56,6 @@ i {
     top: 0;
     width: 100%;
     z-index: 1041;
-    border-bottom-style: solid;
-    border-width: 2px;
-    border-color: black;
     font-weight: 600;
 }
 
@@ -119,7 +116,7 @@ li.nav-item {
     padding: 6rem 1rem !important;
     margin-bottom: 0 !important;
     background-image: linear-gradient(rgba(84, 118, 255, 0.9),
-            rgba(119, 44, 115, 0.8)), url("header.jpg");
+            rgba(119, 44, 115, 0.8));
     background-size: cover;
     color: #fff !important;
     font-family: Montserrat, sans-serif;
@@ -190,12 +187,59 @@ li.nav-item {
     max-width: 45rem;
 }
 
+.row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 footer {
     padding-top: 2rem;
     padding-bottom: 2rem;
     color: #000 !important;
-    background-color: #f8f9fa !important;
-    border-top: 2px solid black;
+    background-color: #f8f9fa;
+}
+
+
+
+.container-grid {
+    background-image: url('background-grid.jpg');
+    background-size: 500px;
+    background-repeat: repeat;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.container-grid-2 {
+    background-image: url('background-grid.jpg');
+    background-size: 500px;
+    background-repeat: repeat;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    background-color: white;
+}
+
+.container-grid-3 {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding-top: 20px;
+}
+
+.form-row {
+    margin: -5px;
+    padding-bottom: 15px;
+}
+
+#form-row.btn {
+    background-color: rgb(84, 118, 255);
+    border-color: rgb(84, 118, 255);
+    font-weight: bold;
+}
+
+div.row.page-info.form-row {
+    padding-left: 15px;
+}
+
+.form-desc {
+    padding-top: 15px;
 }
 
 footer p {
@@ -436,8 +480,3 @@ footer p {
 }
 
 /************/
-
-#common {
-    display: flex;
-    justify-content: center;
-}

@@ -17,26 +17,26 @@
 
 {% block content %}
 
-<div class="py-5">
-    <div class="container">
-        <div class="row page-info">
+<div class="py-5 container-grid-2">
+    <div class="container container-grid-3">
+        <div class="row page-info form-row">
             <div class="col-12 col-lg-4">
-                <h1>Blender</h1>
+                <h1>Blendr</h1>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-8 form-desc">
                 <p>Enter a playlist ID to find out if any of your top artists are on the playlist!</p>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <form class="p-4" id="playlistForm" action="/blender" method="post">
-                    <div class="row">
+                <form class="p-4" id="playlistForm" action="/blendr" method="post">
+                    <div class="row form-row">
                         <input type="text" class="form-control input-lg" name="playlist_name" id="playlist_name"
                             aria-describedby="PlaylistName" placeholder="Playlist ID">
                     </div>
                     <div class="row page-info"></div>
-                    <div class="row">
-                        <input class="btn btn-info btn-block" type="submit" name='submit' value='submit'>
+                    <div class="row form-row" id="form-row">
+                        <input id='form-row' class="btn btn-info btn-block" type="submit" name='submit' value='BLEND'>
                     </div>
                 </form>
             </div>
