@@ -234,6 +234,11 @@ footer {
     font-weight: bold;
 }
 
+.results {
+    color: white;
+    font-size: 30px;
+}
+
 div.row.page-info.form-row {
     padding-left: 15px;
 }
@@ -277,9 +282,9 @@ footer p {
     list-style: none;
     margin: 0px;
     position: relative;
-    border: 3px solid white;
     border-radius: 15px;
     background: rgba(239, 239, 239, 0.5);
+    box-shadow: 5px 10px 15px;
 }
 
 .form-line {
@@ -292,6 +297,13 @@ footer p {
     text-align: center;
     border-bottom: 2px solid white;
     color: #fff !important;
+    padding-top: 10px;
+}
+
+.form-desc {
+    color: white;
+    text-align: left;
+    padding: 10px;
 }
 
 .form-box {

@@ -16,13 +16,13 @@
     <div class="container">
         <div class="row page-info">
             <div class="col-12 col-lg-4">
-                <h1>Top Artists</h1>
+                <h1>Blended</h1>
             </div>
             <div class="col-12 col-lg-8">
-                <p>Hi {{ name }}! Here are your most listened artists from the last month, 6 months, and all-time.</p>
+                <p class="form-desc">Hi {{ name }}! Here are your Blendr results :)</p>
             </div>
         </div>
-        <div class="container">
+        <div class="container row">
             <div class="col-12 col-lg-5">
                 <div class="form-content">
                     <ul class="form-list">
@@ -54,13 +54,13 @@
                 <div class="form-content">
                     <ul class="form-list">
                         <li class="form-header">
-                            <h1>Artists in Common</h1>
+                            <h1>Shared Artists</h1>
                         </li>
                         <li class="form-line">
                             <div class="form-box">
                                 <div class="form-scroll">
+                                    <h4 class="form-desc">{{ number }} of your top artists are on this playlist:</h4>
                                     <div id="long">
-                                        <h2>{{ number }} of your top artists are on this playlist!</h2>
                                         <ol>
                                             {% for artist in common %}
                                             <div>
