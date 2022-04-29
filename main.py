@@ -120,10 +120,7 @@ def getTopArtistsLong():
 
 @app.route('/artists')
 def artists():
-    # sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
-    # response = (sp.current_user_top_artists(
-    #     limit=20, offset=0, time_range='medium_term'))['items']
-    # app.logger.info(response)
+    # render user's top artists
     user_info = getUserInfo()
     name = user_info['display_name']
     data1 = getTopArtistsShort()
@@ -162,6 +159,7 @@ def get_playlist_tracks():
 
 @app.route('/blendr', methods=['POST', 'GET'])
 def blender():
+    # render user's playlist input and shared artists
     if request.method == "GET":
         return render_template('blender.html')
     if request.form['submit'] == 'BLEND':
