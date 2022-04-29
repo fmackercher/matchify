@@ -182,5 +182,10 @@ def blender():
         return render_template('results.html', playlist_artists=artists, name=name, common=artists_in_common, number=number_in_common)
 
 
+@app.route('/billboard')
+def billboard():
+    return render_template('billboard.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
